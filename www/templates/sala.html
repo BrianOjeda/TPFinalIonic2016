@@ -1,0 +1,20 @@
+<ion-view title="sala" id="page2" style="background-color:#1D3A83;">
+  <ion-content padding="true" class="has-header">
+    <form id="sala-form8" class="list">
+      <ion-toggle toggle-class="toggle-balanced" ng-checked="true" id="sala-toggle5">Desloguear</ion-toggle>
+    </form>
+    <div class="spacer" style="width: 300px; height: 67px;"></div>
+   
+    <ion-list radio-group id="juegos">
+          <ion-list-header>
+           Juegos
+          </ion-list-header>
+          <ion-item ng-repeat="x in juegos">
+                  <ion-label>{{x.nombre}}</ion-label>
+                  <ion-radio  value="{{x.email}}" id="{{x.objeto}}"></ion-radio>
+          </ion-item>  
+    </ion-list>
+    <div class="spacer" style="width: 300px; height: 55px;"></div>
+    <button id="sala-button2" class="button button-positive  button-block" ng-click="cambiar()">Comenzar juego</button>
+  </ion-content>
+</ion-view>

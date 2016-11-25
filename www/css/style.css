@@ -1,0 +1,16 @@
+/* Empty. Add your own CSS if you like */
+form#menu-form7 {
+    position: fixed;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 2%;
+}
+div#menu-toggle3 {
+    position: fixed;
+    margin-top: 10%;
+    background-color: transparent;
+    border-bottom-color: transparent;
+    color: coral;
+    left: 50%;
+    border: aliceblue;
+}

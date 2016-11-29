@@ -1,13 +1,20 @@
 <ion-view title="juego" id="page7" style="background-color:#1D3A83;">
   <ion-content padding="true" class="has-header">
     <form id="juego-form13" class="list">
-      <ion-radio id="juego-radio4">1</ion-radio>
-      <ion-radio id="juego-radio7">2</ion-radio>
-      <ion-radio id="juego-radio8">3</ion-radio>
-      <ion-radio id="juego-radio9">4</ion-radio>
-      <ion-radio id="juego-radio6">5</ion-radio>
-      <ion-radio id="juego-radio5">6</ion-radio>
+      <table border>
+        <tr>
+          <td><ion-radio id="juego-radio4" value="1" name="cuadro">1</ion-radio></td>
+          <td><ion-radio id="juego-radio7" value="2" name="cuadro">2</ion-radio></td>
+          <td><ion-radio id="juego-radio8" value="3" name="cuadro">3</ion-radio></td>
+        </tr>
+        <tr>
+          <td><ion-radio id="juego-radio9" value="4" name="cuadro">4</ion-radio></td>
+          <td><ion-radio id="juego-radio6" value="5" name="cuadro">5</ion-radio></td>
+          <td><ion-radio id="juego-radio5" value="6" name="cuadro">6</ion-radio></td>
+        </tr>
+      </table>
     </form>
-    <button id="juego-button13" class="button button-positive  button-block">Tap me!</button>
+
+    <button id="juego-button13" class="button button-positive  button-block" ng-click="partida()">Aceptar</button>
   </ion-content>
 </ion-view>

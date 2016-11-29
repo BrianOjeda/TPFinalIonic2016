@@ -5,5 +5,6 @@ angular
 	    objeto.nombre = "Factory de Rutas";
 	    objeto.firebaseUser= "https://final-138aa.firebaseio.com/final/user";
 	    objeto.firebaseJuego= "https://final-138aa.firebaseio.com/final/juego";
+	    objeto.firebasePartida= "https://final-138aa.firebaseio.com/final/partida";
 	    return objeto;
   })//Cierra factory

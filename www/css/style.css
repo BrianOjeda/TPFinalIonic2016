@@ -14,3 +14,13 @@ div#menu-toggle3 {
     left: 50%;
     border: aliceblue;
 }
+
+.botonsala
+{
+    border-color: transparent;
+    background-color: #387ef5;
+    color: #fff;
+}
+table, th, td {
+   border: 1px solid black;
+}

@@ -18,13 +18,13 @@ angular.module('app.services', [])
           // An error happened.
         });
     }
-    	function CrearUsuario(email,contrasena,nombre,apellido,telefono)
+    	function CrearUsuario(email,contrasena,nombre,apellido,telefono,dni,monedas)
     	{
               //var promise = defered.promise;
              
           		firebase.auth().createUserWithEmailAndPassword(email, contrasena).then(function(result) {
                 
-                CrearPerfil(email,nombre,apellido,telefono);
+                CrearPerfil(email,nombre,apellido,telefono,dni,monedas);
                
                 }, function(error) {
                  
@@ -46,11 +46,11 @@ angular.module('app.services', [])
                 });
       	}
 
-        function CrearPerfil(email,nombre,apellido,telefono)
+        function CrearPerfil(email,nombre,apellido,telefono,dni,monedas)
         {
             var messagesRef = new Firebase(Direcciones.firebaseUser);
 
-             messagesRef.push({email:email, nombre:nombre,apellido:apellido,telefono:telefono,tipo:"Admin"});
+             messagesRef.push({email:email, nombre:nombre,apellido:apellido,telefono:telefono,tipo:"Admin",dni:dni,monedas:monedas});
               window.location.href="#/login";
              alert("Usuario creado");
         }
@@ -95,6 +95,7 @@ angular.module('app.services', [])
         {
             var user = firebase.auth().currentUser;
             console.log("Estoy en traer datos usuario: "+user);
+            console.log(user.dni);
             return user;
         }
 

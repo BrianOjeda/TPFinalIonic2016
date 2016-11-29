@@ -15,7 +15,11 @@ angular.module('app.routes', [])
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
-
+    .state('perfil', {
+    url: '/perfil',
+    templateUrl: 'templates/perfil.html',
+    controller: 'perfilCtrl'
+  })   
   .state('sala', {
     url: '/sala',
     templateUrl: 'templates/sala.html',

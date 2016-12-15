@@ -1,0 +1,31 @@
+<ion-view title="crearjuego" id="page4" style="background-color:#1D3A83;">
+  <ion-content>
+   <ion-toggle toggle-class="toggle-balanced" ng-checked="true" id="menu-toggle3" ng-click="Desloguear()">Desloguear</ion-toggle>
+
+
+      <h1 class="titulomenu">Aceptar solicitud de monedas</h1>
+    
+  <table border class="tablasala">
+      <tr>
+        <th>Monto</th>
+        <th>Correo</th>
+      </tr>
+      <tr ng-repeat="x in solicitudes">
+        <td>{{x.monto}}</td>
+        <td><ion-radio  value="{{x.fila}}" color="dark " id="{{x.objeto}}" name="cuadro">{{x.email}}</ion-radio></td>
+      </tr>
+  </table>
+   
+ 
+    <button  class="button button-positive buttonaceptar" ng-click="Aceptar()">Aceptar</button>
+    <button  class="button button-positive buttonrechazar" ng-click="Rechazar()">Rechazar</button>
+
+     <a ui-sref="menu" id="login-button1" class="salamenu"><img src="img/casita.png" class="imghome"></a>
+
+  
+     <form name="form1" method="POST"  action= "mailto:poneaquí@tuemail?subject=asunto" enctype="text/plain">
+        <div id="qr" style="visibility:hidden;"></div>
+    </form>
+    <input type="hidden" value="" id="msg" name="msg">
+  </ion-content>
+</ion-view>

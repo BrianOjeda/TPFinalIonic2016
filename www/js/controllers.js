@@ -1,6 +1,57 @@
 angular.module('app.controllers', [])
   
+.controller('AceptarCtrl', ['$scope', '$stateParams','User', '$state','$timeout','User','Direcciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams,User,$state, $timeout,User,Direcciones) {
 
+		$scope.solicitudes=[];
+			var messagesRef=new Firebase(Direcciones.firebaseSolicitud);
+			var c=0;
+			messagesRef.on('child_added', function (snapshot) {
+		    //GET DATA
+		    var solicitud=snapshot.val();
+		    	if (solicitud.estado=="activo") 
+		    		{
+		    			c=c+1;
+					    console.log("Estoy en el if");
+					    var obj=new Object();
+					    obj.fila=solicitud.fila;
+					    obj.email=solicitud.email;
+					    obj.monto=solicitud.monto;
+					    obj.objeto="solicitud"+c;
+				   		//$scope.juegos=data;
+				   		$scope.solicitudes.push(obj);
+				   		console.log($scope.solicitudes);
+				   		$state.reload(true);
+		    		}
+		    	
+		   		//$("#juegos").append('<ion-item><ion-label>'+data.nombre+'</ion-label><ion-radio  value="'+data.email+'"></ion-radio></ion-item>');
+		   
+		  });
+			$scope.Aceptar=function()
+			{
+				var aleatorio = Math.round(Math.random()*100000);
+				$("#msg").val(aleatorio);
+				update_qrcode();
+				
+				$("input[name=cuadro]").each(function (index) { 
+						 if($(this).is(':checked'))
+						  {
+								var valordelradio=$(this).val();
+
+								var adaNameRef = firebase.database().ref('final/solicitud/'+valordelradio);
+								adaNameRef.update({estado:"aprobado",numeroaleatorio:aleatorio});
+								console.log("proceso terminado");
+						   }
+				});
+			}
+			$scope.Rechazar=function()
+			{
+
+			}
+	
+}])
  .controller('CargarCtrl', ['$scope', '$stateParams','User', '$state','$cordovaBarcodeScanner','$timeout','User', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -43,7 +94,35 @@ function ($scope, $stateParams,User,$state, $cordovaBarcodeScanner,$timeout,User
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 	function ($scope, $stateParams,User,$state, $cordovaBarcodeScanner,$timeout,User) {
 
+// 		user.updateProfile({
+//   displayName: "Jane Q. User",
+//   photoURL: "https://example.com/jane-q-user/profile.jpg"
+// }).then(function() {
+//   // Update successful.
+// }, function(error) {
+//   // An error happened.
+// });
+		$scope.solicitud=function()
+		{	
+			var hoy = new Date();
+			var dd = hoy.getDate();
+			var mm = hoy.getMonth()+1; //hoy es 0!
+			var yyyy = hoy.getFullYear();
+			fecha = dd+'/'+mm+'/'+yyyy;
 
+			var user=User.TraerDatosUsuario();
+			var fila=user.uid+hoy;
+			
+			// firebase.database().ref('final/solicitud/' + user.uid).set({
+			//     username: name,
+			//     email: email,
+			//     profile_picture : imageUrl
+			//   });
+			var adaNameRef = firebase.database().ref('final/solicitud/'+fila);
+			adaNameRef.update({fila:fila, idusuario:user.uid,numerotarjeta:$("#numero").val(),monto:$("#monto").val(),email:user.email,estado:"activo",numeroaleatorio:"vacio",fecha:fecha,hoy:hoy});
+			window.location.href="#/menu";
+		}
+		
 
 
 }]) 
@@ -211,20 +290,20 @@ $scope.Desloguear=function()
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams,User,Direcciones,$timeout,$state) {
 	$state.reload(true);
-			$timeout(function () {
-						var user=User.TraerDatosUsuario();
-						$scope.visibilidad=true;
-						var messagesRef=new Firebase(Direcciones.firebaseJuego);
+			// $timeout(function () {
+			// 			var user=User.TraerDatosUsuario();
+			// 			$scope.visibilidad=true;
+			// 			var messagesRef=new Firebase(Direcciones.firebaseJuego);
 								
-						messagesRef.on('child_added', function (snapshot) {
-							var dato=snapshot.val();
-							if (dato.email==user.email)
-								{
-									$scope.visibilidad=false;
-								}
+			// 			messagesRef.on('child_added', function (snapshot) {
+			// 				var dato=snapshot.val();
+			// 				if (dato.email==user.email)
+			// 					{
+			// 						$scope.visibilidad=false;
+			// 					}
 				              	
-				        });
-			}, 5000);
+			// 	        });
+			// }, 5000);
 
 			$scope.Desloguear=function()
 			{

@@ -1,4 +1,16 @@
 /* Empty. Add your own CSS if you like */
+.buttonaceptar
+{
+       position: fixed;
+    margin-top: 120%;
+    margin-left: 20%;
+}
+.buttonrechazar
+{
+       position: fixed;
+    margin-top: 120%;
+    margin-left: 60%;
+}
 .titulosolicitud {
     position: fixed;
     font-family: Algerian;

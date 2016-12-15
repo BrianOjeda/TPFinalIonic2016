@@ -8,6 +8,11 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
     
+    .state('aceptarsolicitud', {
+    url: '/aceptarsolicitud',
+    templateUrl: 'templates/aceptarsolicitud.html',
+    controller: 'AceptarCtrl'
+  })
      .state('cargarmonedas', {
     url: '/cargarmonedas',
     templateUrl: 'templates/cargarmonedas.html',

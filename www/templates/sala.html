@@ -1,22 +1,24 @@
 <ion-view title="sala" id="page2" style="background-color:#1D3A83;">
-  <ion-content padding="true" class="has-header">
-    <form id="sala-form8" class="list">
-      <ion-toggle toggle-class="toggle-balanced" ng-checked="true" id="sala-toggle5">Desloguear</ion-toggle>
-    </form>
-    <div class="spacer" style="width: 300px; height: 67px;"></div>
-   
+  <ion-content >
+    <ion-toggle toggle-class="toggle-balanced" ng-checked="true" id="menu-toggle4" ng-click="Desloguear()">Desloguear</ion-toggle>
 
-   <table border>
+
+      <h1 class="titulomenu">Sala</h1>
+
+   <table border class="tablasala">
       <tr>
         <th>Apuesta</th>
-        <th>Nombre de la partida</th>
+        <th>Seleccione la partida</th>
       </tr>
       <tr ng-repeat="x in juegos">
         <td>{{x.apuesta}}</td>
         <td><ion-radio  value="{{x.email}}" color="dark " id="{{x.objeto}}" name="cuadro">{{x.nombre}}</ion-radio></td>
   </table>
    
-    <div class="spacer" style="width: 300px; height: 55px;"></div>
-    <button id="sala-button2" class="botonsala" ng-click="Comenzar()">Comenzar juego</button>
+ 
+    <button id="sala-button2" class="button button-positive botonsala" ng-click="Comenzar()">Comenzar juego</button>
+
+ <a ui-sref="menu" id="login-button1" class="salamenu"><img src="img/casita.png" class="imghome"></a>
+    
   </ion-content>
 </ion-view>

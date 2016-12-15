@@ -1,22 +1,19 @@
 <ion-view title="perfil" id="page4" style="background-color:#1D3A83;">
-  <ion-content padding="true" class="has-header">
-    <form id="crearjuego-form9" class="list">
-      <ion-toggle toggle-class="toggle-balanced" ng-checked="true" id="crearjuego-toggle6">Desloguear</ion-toggle>
-    </form>
-    <table border>
-      <tr>
-        <td>Nombre</td><td>Apellido</td><td>Dni</td>
-      </tr>
-      <tr>
-        <td>{{Nombre}}</td><td>{{Apellido}}</td><td>{{Dni}}</td>
-      </tr>
-      <tr>
-        <td>Telefono</td><td>Email</td><td>Monedas</td>
-      </tr>
-      <tr>
-         <td>{{Telefono}}</td><td>{{Email}}</td><td>{{Monedas}}</td>
-      </tr>
-    </table>
-    <button id="crearjuego-button5" class="button button-positive  button-block" ng-click="guardarjuego()">Crear Juego</button>
+  <ion-content >
+    <ion-toggle toggle-class="toggle-balanced" ng-checked="true" id="menu-toggle3" ng-click="Desloguear()">Desloguear</ion-toggle>
+
+      <h1 class="titulomenu">Perfil</h1>
+
+      <DIV class="caja">
+          <h3>Nombre: {{perfil.Nombre}}</h3>
+          <h3>Apellido: {{perfil.Apellido}}</h3>
+          <h3>Dni: {{perfil.Dni}}</h3>
+          <h3>Telefono: {{perfil.Telefono}}</h3> 
+          <h3>Email: {{perfil.Email}}</h3> 
+          <h3>Monedas: {{perfil.Monedas}}</h3>
+      </DIV>
+    
+      <a ui-sref="menu" id="login-button1" class="salamenu"><img src="img/casita.png" class="imghome"></a>
+   
   </ion-content>
 </ion-view>

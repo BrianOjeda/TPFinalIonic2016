@@ -8,6 +8,46 @@ angular.module('app.services', [])
    this.TraerDatosUsuario=TraerDatosUsuario;
    this.CrearObjetofireBase=CrearObjetofireBase;
    this.Desloguear=Desloguear;
+   this.Cargando=Cargando;
+
+
+    function Cargando()
+    {
+              // progressbar.js@1.0.0 version is used
+        // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
+
+        var bar = new ProgressBar.Circle(container, {
+          color: '#aaa',
+          // This has to be the same size as the maximum width to
+          // prevent clipping
+          strokeWidth: 4,
+          trailWidth: 1,
+          easing: 'easeInOut',
+          duration: 5000,
+          text: {
+            autoStyleContainer: false
+          },
+          from: { color: '#aaa', width: 1 },
+          to: { color: '#333', width: 4 },
+          // Set default step function for all animate calls
+          step: function(state, circle) {
+            circle.path.setAttribute('stroke', state.color);
+            circle.path.setAttribute('stroke-width', state.width);
+
+            var value = Math.round(circle.value() * 100);
+            if (value === 0) {
+              circle.setText('Cargando');
+            } else {
+              circle.setText(value);
+            }
+
+          }
+        });
+        bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+        bar.text.style.fontSize = '2rem';
+
+        bar.animate(1.0);
+    }
 
     function Desloguear()
     {
@@ -49,14 +89,17 @@ angular.module('app.services', [])
         function CrearPerfil(email,nombre,apellido,telefono,dni,monedas)
         {
             var messagesRef = new Firebase(Direcciones.firebaseUser);
-
-             messagesRef.push({email:email, nombre:nombre,apellido:apellido,telefono:telefono,tipo:"Admin",dni:dni,monedas:monedas});
+              var adaNameRef = firebase.database().ref('final/user/'+dni);
+       
+               adaNameRef.update({email:email, nombre:nombre,apellido:apellido,telefono:telefono,tipo:"Admin",dni:dni,monedas:monedas});
+         
               window.location.href="#/login";
              alert("Usuario creado");
         }
        
         function Login(email,contrasena)
         {
+          //alert("Estoy en login funcion");
             firebase.auth().signInWithEmailAndPassword(email,contrasena).then(function(result) {
              // var uno = login.getLogueado();
               //login.setLogueado(true);
@@ -64,6 +107,7 @@ angular.module('app.services', [])
                   /*if($("#email").val()=="admin@hotmail.com") 
                     window.location.href= "#/tab/estadisticaCalificacion";
                   else*/
+                    alert("Me voy a menu");
                     window.location.href="#/menu";
 
                 }, function(error) {
@@ -82,7 +126,7 @@ angular.module('app.services', [])
                              alert(errorMessage);
                           }
                         }
-                        console.log(error);
+                        alert(error);
         
                 });
         }
@@ -95,7 +139,7 @@ angular.module('app.services', [])
         {
             var user = firebase.auth().currentUser;
             console.log("Estoy en traer datos usuario: "+user);
-            console.log(user.dni);
+           
             return user;
         }
 

@@ -1,51 +1,141 @@
 angular.module('app.controllers', [])
   
-.controller('loginCtrl', ['$scope', '$stateParams','User', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+
+ .controller('CargarCtrl', ['$scope', '$stateParams','User', '$state','$cordovaBarcodeScanner','$timeout','User', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,User) {
+function ($scope, $stateParams,User,$state, $cordovaBarcodeScanner,$timeout,User) {
 
+	try{
+		document.addEventListener("deviceready",function(){
+
+			    $cordovaBarcodeScanner
+			      .scan()
+			      //.encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com")
+			      .then(function(barcodeData) {
+			        // Success! Barcode data is here
+			         //alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
+			        $("#email").val(barcodeData.text);
+			        
+			       
+
+			      }, function(error) {
+			        // An error occurred
+			        alert(error);
+			      });
+	
+	    });  
+	}
+	catch(e)
+	{
+		alert(e);
+	}
+	
+	$scope.cargar=function()
+	{
+		
+		
+	};
+	
+}])
+.controller('SolicitarCtrl', ['$scope', '$stateParams','User', '$state','$cordovaBarcodeScanner','$timeout','User', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+	function ($scope, $stateParams,User,$state, $cordovaBarcodeScanner,$timeout,User) {
+
+
+
+
+}]) 
+
+.controller('loginCtrl', ['$scope', '$stateParams','User', '$state','$cordovaBarcodeScanner','$timeout','User', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams,User,$state, $cordovaBarcodeScanner,$timeout,User) {
+
+	//$state.reload(true);
+	//User.Cargando();
+	
+	try{
+		document.addEventListener("deviceready",function(){
+
+			    $cordovaBarcodeScanner
+			      .scan()
+			      //.encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com")
+			      .then(function(barcodeData) {
+			        // Success! Barcode data is here
+			         //alert("We got a barcode\n" + "Result: " + result.text + "\n" + "Format: " + result.format + "\n" + "Cancelled: " + result.cancelled);
+			        $("#email").val(barcodeData.text);
+			        
+			       window.plugins.spinnerDialog.show("title","adas");
+
+			      }, function(error) {
+			        // An error occurred
+			        alert(error);
+			      });
+				
+
+				
+				
+	    });  
+	}
+	catch(e)
+	{
+		alert(e);
+	}
+	$scope.usuariouno=function()
+	{
+		$("#email").val("brian@hotmail.com");
+		$("#pass").val("123456");
+	}
 	$scope.login=function()
 	{
+		
 		User.Login($("#email").val(),$("#pass").val());
 	};
 	
 }])
- .controller('perfilCtrl', ['$scope', '$stateParams','User','Direcciones',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+ .controller('perfilCtrl', ['$scope', '$stateParams','User','Direcciones','$timeout','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,User,Direcciones) {
-
+function ($scope, $stateParams,User,Direcciones,$timeout,$state) {
+			$state.reload(true);
 			var messagesRef=new Firebase(Direcciones.firebaseUser);
 			var c=0;
 			var user=User.TraerDatosUsuario();
+			var objeto=new Object();
 			messagesRef.on('child_added', function (snapshot) {
 		    //GET DATA
 		    var data=snapshot.val();
-		    	if (user.email=data.email)
+		    	if (user.email==data.email)
 		    		{
-		    			$scope.Apellido=data.apellido;
-		    			$scope.Dni=data.dni;
-		    			$scope.Email=data.email;
-		    			$scope.Telefono=data.telefono;
-		    			$scope.Nombre=data.nombre;
-		    			$scope.Monedas=data.monedas; 
+		    			console.log(data.dni);
+		    			objeto.Apellido=data.apellido;
+		    			objeto.Dni=data.dni;
+		    			objeto.Email=data.email;
+		    			objeto.Telefono=data.telefono;
+		    			objeto.Nombre=data.nombre;
+		    			objeto.Monedas=data.monedas; 
 		    		}
 		   		//$("#juegos").append('<ion-item><ion-label>'+data.nombre+'</ion-label><ion-radio  value="'+data.email+'"></ion-radio></ion-item>');
 		   
 			 });
-	
+
+	$timeout(function () {
+				$scope.perfil=objeto;
+			}, 5000);
 	
 }])  
 
-.controller('salaCtrl', ['$scope', '$stateParams','Direcciones','User', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('salaCtrl', ['$scope', '$stateParams','Direcciones','User','$timeout','$ionicHistory','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,Direcciones,User) {
+function ($scope, $stateParams,Direcciones,User,$timeout,$ionicHistory,$state) {
 
+	$state.reload(true);
+	$ionicHistory.clearCache().then(function(){
 
-	
-			$scope.juegos=[];
+		$scope.juegos=[];
 			var messagesRef=new Firebase(Direcciones.firebaseJuego);
 			var c=0;
 			messagesRef.on('child_added', function (snapshot) {
@@ -63,7 +153,15 @@ function ($scope, $stateParams,Direcciones,User) {
 		   		//$("#juegos").append('<ion-item><ion-label>'+data.nombre+'</ion-label><ion-radio  value="'+data.email+'"></ion-radio></ion-item>');
 		   
 		  });
-
+	 });
+			
+$scope.Desloguear=function()
+			{
+				$timeout(function () {
+						User.Desloguear();
+				}, 2000);
+				
+			};
 			$scope.Comenzar=function()
 			{		
 					
@@ -108,10 +206,11 @@ function ($scope, $stateParams,Direcciones,User) {
 		   
 }])
    
-.controller('menuCtrl', ['$scope', '$stateParams','User','Direcciones','$timeout', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('menuCtrl', ['$scope', '$stateParams','User','Direcciones','$timeout', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,User,Direcciones,$timeout) {
+function ($scope, $stateParams,User,Direcciones,$timeout,$state) {
+	$state.reload(true);
 			$timeout(function () {
 						var user=User.TraerDatosUsuario();
 						$scope.visibilidad=true;
@@ -126,14 +225,23 @@ function ($scope, $stateParams,User,Direcciones,$timeout) {
 				              	
 				        });
 			}, 5000);
+
+			$scope.Desloguear=function()
+			{
+				$timeout(function () {
+						User.Desloguear();
+				}, 2000);
+				
+			};
 		 
 }])
    
-.controller('crearjuegoCtrl', ['$scope', '$stateParams','User','Direcciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('crearjuegoCtrl', ['$scope', '$stateParams','User','Direcciones','$state',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,User,Direcciones) {
+function ($scope, $stateParams,User,Direcciones,$state) {
 
+			$state.reload(true);
 			$scope.guardarjuego=function()
 			{
 				var user=User.TraerDatosUsuario();
@@ -158,11 +266,12 @@ function ($scope, $stateParams,User,Direcciones) {
 	
 }])
    
-.controller('crearusuarioCtrl', ['$scope', '$stateParams','User', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('crearusuarioCtrl', ['$scope', '$stateParams','User', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,User) {
+function ($scope, $stateParams,User,$state) {
 
+	$state.reload(true);
 	$scope.CrearUsuario=function(){
 		//alert($("#email").val());
 		User.CrearUsuario($("#email").val(),$("#password").val(),$("#nombre").val(),$("#apellido").val(),$("#telefono").val(),$("#dni").val(),"100");
@@ -170,11 +279,12 @@ function ($scope, $stateParams,User) {
 	
 }])
    
-.controller('juegoCtrl', ['$scope', '$stateParams','User','Direcciones','$timeout',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('juegoCtrl', ['$scope', '$stateParams','User','Direcciones','$timeout','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,User,Direcciones,$timeout) {
+function ($scope, $stateParams,User,Direcciones,$timeout,$state) {
 
+	$state.reload(true);
 	$scope.partida=function()
 	{
 		
@@ -183,7 +293,10 @@ function ($scope, $stateParams,User,Direcciones,$timeout) {
 	    var messagesRef=new Firebase(Direcciones.firebaseJuego);
 		var auxiliar=0;
 		var nombrejuego="";	
-			
+		var monedasdeljuego=0;
+		var auxiliarganador=0;
+		var auxiliardni=0;
+		var auxiliaremail=0;
 				    messagesRef.on('child_added', function (snapshot) {
 							var lala=snapshot.val();
 							//console.log(lala);
@@ -192,9 +305,11 @@ function ($scope, $stateParams,User,Direcciones,$timeout) {
 								auxiliar=1;
 								console.log("Entre en el uno");
 								nombrejuego=lala.nombre;
+								monedasdeljuego=lala.apuesta;
 							}
 							else
 							{
+								monedasdeljuego=lala.apuesta;
 								auxiliar=2;
 								console.log("Entre en el dos");
 							}	
@@ -205,6 +320,7 @@ function ($scope, $stateParams,User,Direcciones,$timeout) {
 				{
 					//admin
 					var messagesRef=new Firebase(Direcciones.firebaseUser);
+					auxiliarganador=2;
 					messagesRef.on('child_added', function (snapshot) {
 						var dato=snapshot.val();
 						if(dato.email==user.email)
@@ -213,7 +329,7 @@ function ($scope, $stateParams,User,Direcciones,$timeout) {
 							$("input[name=cuadro]").each(function (index) {  
 							       if($(this).is(':checked')){
 							          
-							         adaNameRef.update({ emailadmin:user.email,emailuser:'vacio',nombrejuego:nombrejuego,estrategiaadmin:$(this).val()});
+							         adaNameRef.update({ monedas:monedasdeljuego,emailadmin:user.email,emailuser:'vacio',nombrejuego:nombrejuego,estrategiaadmin:$(this).val()});
 							         console.log("Datos almacenados");
 							         window.location.href="#/menu";
 							       }
@@ -235,20 +351,19 @@ function ($scope, $stateParams,User,Direcciones,$timeout) {
 							       			 var messagesRef=new Firebase(Direcciones.firebasePartida);
 												messagesRef.on('child_added', function (snapshot) {
 														var lala=snapshot.val();
-														//console.log(lala);
+														monedasdeljuego=lala.monedas;
+														console.log("Entre en el metodo");
 														if (lala.emailuser==user.email) 
 															{
-																var auxiliaremail=lala.emailadmin;
+																auxiliaremail=lala.emailadmin;
+																auxiliardni=lala.dni;
 																if(lala.estrategiaadmin==radiocheck)
 																{
-																	alert("Gano el jugador:"+user.email);
+																	auxiliarganador=1;
+																	
+																	//alert("Gano el jugador:"+user.email);
 																}
-																else
-																{
-																	alert("Gano el jugador:"+lala.emailadmin);
-																}
-
-
+																
 																 	var messagesRef=new Firebase(Direcciones.firebaseUser);
 																	messagesRef.on('child_added', function (snapshot) {	
 																			var data=snapshot.val();
@@ -279,7 +394,54 @@ function ($scope, $stateParams,User,Direcciones,$timeout) {
 				}
 	        console.log("Valor del auxiliar es: "+auxiliar);	
 	    }, 10000);
-		 	
+		$timeout(function () {
+	    	
+
+	    	if(auxiliarganador==1)
+	    	{
+	    		var messagesRef=new Firebase(Direcciones.firebaseUser);
+				messagesRef.on('child_added', function (snapshot) {	
+					var data=snapshot.val();
+					if (data.email==user.email) 
+							{
+								 var adaNameRef = firebase.database().ref('final/user/'+data.dni);
+       
+               					 var mismonedas=parseInt(monedasdeljuego)+parseInt(data.monedas);
+               					 adaNameRef.update({monedas:mismonedas});
+							}
+					if (data.email==auxiliaremail) 
+							{
+								var adaNameRef = firebase.database().ref('final/user/'+data.dni);
+       							var mismonedas=parseInt(data.monedas)-parseInt(monedasdeljuego);
+               					 adaNameRef.update({monedas:mismonedas});
+							}
+						console.log("Gano el usuario actual");									       			
+				});	
+	    	}
+	    	if(auxiliarganador==0)
+	    	{
+	    		var messagesRef=new Firebase(Direcciones.firebaseUser);
+	    		console.log("Valor de moneda es: "+monedasdeljuego);
+				messagesRef.on('child_added', function (snapshot) {	
+					var data=snapshot.val();
+					if (data.email==auxiliaremail) 
+							{
+								var adaNameRef = firebase.database().ref('final/user/'+data.dni);
+       							var mismonedas=parseInt(monedasdeljuego)+parseInt(data.monedas);
+               					 adaNameRef.update({monedas:mismonedas});
+							}
+					if (data.email==user.email) 
+							{
+								 var adaNameRef = firebase.database().ref('final/user/'+data.dni);
+       
+               					 var mismonedas=parseInt(data.monedas)-parseInt(monedasdeljuego);
+               					 adaNameRef.update({monedas:mismonedas});
+							}
+															       			
+				});	
+	    		console.log("Gano el creador del juego");
+	    	}
+	    }, 11000);		 	
 
 	};
 }])

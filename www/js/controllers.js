@@ -48,8 +48,12 @@ function ($scope, $stateParams,User,$state, $timeout,User,Direcciones) {
 			}
 			$scope.Rechazar=function()
 			{
-
+					document.getElementById("form1").submit();
 			}
+
+
+
+				
 	
 }])
  .controller('CargarCtrl', ['$scope', '$stateParams','User', '$state','$cordovaBarcodeScanner','$timeout','User', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller

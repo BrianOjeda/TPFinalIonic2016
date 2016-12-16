@@ -79,7 +79,7 @@ angular.module('app.services', [])
                           }
                           else
                           {
-                             console.log(errorMessage);
+                             alert(errorMessage);
                           }
                         }
         
@@ -88,11 +88,11 @@ angular.module('app.services', [])
 
         function CrearPerfil(email,nombre,apellido,telefono,dni,monedas)
         {
-            var messagesRef = new Firebase(Direcciones.firebaseUser);
-              var adaNameRef = firebase.database().ref('final/user/'+dni);
+              var user = firebase.auth().currentUser;
+              var adaNameRef = firebase.database().ref('final/user/'+user.uid);
        
-               adaNameRef.update({email:email, nombre:nombre,apellido:apellido,telefono:telefono,tipo:"Admin",dni:dni,monedas:monedas});
-         
+               adaNameRef.update({fila:user.uid,email:email, nombre:nombre,apellido:apellido,telefono:telefono,tipo:"Admin",dni:dni,monedas:monedas});
+              
               window.location.href="#/login";
              alert("Usuario creado");
         }

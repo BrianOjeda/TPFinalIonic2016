@@ -1,4 +1,10 @@
 /* Empty. Add your own CSS if you like */
+.buttoncarga {
+    position: fixed;
+    margin-top: 20%;
+    margin-left: 20%;
+    width: 60%;
+}
 .buttonaceptar
 {
        position: fixed;
@@ -34,6 +40,12 @@
     position: fixed;
     margin-top: 20%;
     margin-left: 5%;
+}
+.usuariodos
+{
+    position: fixed;
+    margin-top: 20%;
+    margin-left: 40%;
 }
 
 .titulojuego{

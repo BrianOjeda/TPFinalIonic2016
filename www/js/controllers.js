@@ -1,9 +1,35 @@
 angular.module('app.controllers', [])
   
-.controller('AceptarCtrl', ['$scope', '$stateParams','User', '$state','$timeout','User','Direcciones', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('AceptarCtrl', ['$scope', '$stateParams','User', '$state','$timeout','User','Direcciones',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams,User,$state, $timeout,User,Direcciones) {
+
+		$scope.sendFeedback= function() {
+			var aux="<html><head></head><body>"+$("#prueba").html()+"</body></html>";
+			try
+			{
+				if(window.plugins && window.plugins.emailComposer) {
+		            window.plugins.emailComposer.showEmailComposerWithCallback(function(result) {
+		                console.log("Response -> " + result);
+		            }, 
+		            "Codigo Qr", // Subject
+		            aux,                      // Body
+		            ["brian_ezequiel_ojeda@hotmail.com"],    // To
+		            null,                    // CC
+		            null,                    // BCC
+		            true,			       // isHTML
+		           null,                  // Attachments
+		            null);                   // Attachment Data
+		        }
+				alert(aux);	
+			}
+			catch(e)
+			{
+				alert(e);
+			}
+		        
+   		 }
 
 		$scope.solicitudes=[];
 			var messagesRef=new Firebase(Direcciones.firebaseSolicitud);
@@ -34,17 +60,10 @@ function ($scope, $stateParams,User,$state, $timeout,User,Direcciones) {
 				var aleatorio = Math.round(Math.random()*100000);
 				$("#msg").val(aleatorio);
 				update_qrcode();
-				
-				$("input[name=cuadro]").each(function (index) { 
-						 if($(this).is(':checked'))
-						  {
-								var valordelradio=$(this).val();
 
-								var adaNameRef = firebase.database().ref('final/solicitud/'+valordelradio);
-								adaNameRef.update({estado:"aprobado",numeroaleatorio:aleatorio});
-								console.log("proceso terminado");
-						   }
-				});
+			
+				
+				
 			}
 			$scope.Rechazar=function()
 			{
@@ -263,21 +282,7 @@ $scope.Desloguear=function()
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams,User,Direcciones,$timeout,$state) {
 	$state.reload(true);
-			// $timeout(function () {
-			// 			var user=User.TraerDatosUsuario();
-			// 			$scope.visibilidad=true;
-			// 			var messagesRef=new Firebase(Direcciones.firebaseJuego);
-								
-			// 			messagesRef.on('child_added', function (snapshot) {
-			// 				var dato=snapshot.val();
-			// 				if (dato.email==user.email)
-			// 					{
-			// 						$scope.visibilidad=false;
-			// 					}
-				              	
-			// 	        });
-			// }, 5000);
-
+		
 			$scope.Desloguear=function()
 			{
 				$timeout(function () {

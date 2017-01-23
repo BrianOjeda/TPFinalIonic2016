@@ -1,10 +1,10 @@
-<ion-view title="crearjuego" id="page4" style="background-color:#1D3A83;">
+<ion-view title="Aceptarsolicitud" id="page4" style="background-color:#1D3A83;">
   <ion-content>
    <ion-toggle toggle-class="toggle-balanced" ng-checked="true" id="menu-toggle3" ng-click="Desloguear()">Desloguear</ion-toggle>
 
 
       <h1 class="titulomenu">Aceptar solicitud de monedas</h1>
-    
+ <div id="todo">
   <table border class="tablasala">
       <tr>
         <th>Monto</th>
@@ -23,10 +23,16 @@
      <a ui-sref="menu" id="login-button1" class="salamenu"><img src="img/casita.png" class="imghome"></a>
 
   
-     <form id="form1" name="form1" method="POST"  action= "https://script.google.com/macros/s/AKfycbyxusB0kZfJ3mJ1nzLdFUeALp8TPtruOiuDMygSjQw0PWloJuU/exec" enctype="text/plain">
-        <input type="text" value="laslasldalsdald">
-        <div id="qr" style="visibility:hidden;"></div>
-    </form>
+     
+       
+        <div id="qr" style="visibility:hidden;">
+    
+        </div>
+        <div id="prueba" style="visibility:hidden;">
+          <img src="img/casita.png">
+        </div>
+</div>
     <input type="hidden" value="" id="msg" name="msg">
+    <input type="hidden" id="src"> 
   </ion-content>
 </ion-view>

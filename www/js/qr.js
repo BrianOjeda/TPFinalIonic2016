@@ -83,8 +83,32 @@ s=c;}}
 bitOut.write(table.indexOf(s),bitLength);bitOut.write(endCode,bitLength);bitOut.flush();return byteOut.toByteArray();};var lzwTable=function(){var _map={};var _size=0;var _this={};_this.add=function(key){if(_this.contains(key)){throw new Error('dup key:'+key);}
 _map[key]=_size;_size+=1;};_this.size=function(){return _size;};_this.indexOf=function(key){return _map[key];};_this.contains=function(key){return typeof _map[key]!='undefined';};return _this;};return _this;};var createImgTag=function(width,height,getPixel,alt){var gif=gifImage(width,height);for(var y=0;y<height;y+=1){for(var x=0;x<width;x+=1){gif.setPixel(x,y,getPixel(x,y));}}
 var b=byteArrayOutputStream();gif.write(b);var base64=base64EncodeOutputStream();var bytes=b.toByteArray();for(var i=0;i<bytes.length;i+=1){base64.writeByte(bytes[i]);}
-base64.flush();var img='';img+='<img';img+='\u0020src="';img+='data:image/gif;base64,';img+=base64;img+='"';img+='\u0020width="';img+=width;img+='"';img+='\u0020height="';img+=height;img+='"';if(alt){img+='\u0020alt="';img+=alt;img+='"';}
-img+='/>';return img;};return qrcode;}();var draw_qrcode=function(text,typeNumber,errorCorrectLevel){document.write(create_qrcode(text,typeNumber,errorCorrectLevel));};var create_qrcode=function(text,typeNumber,errorCorrectLevel,table){var qr=qrcode(typeNumber||4,errorCorrectLevel||'M');qr.addData(text);qr.make();return qr.createImgTag();};var update_qrcode=function(){
+base64.flush();
+var img='';
+img+='<img';
+img+='\u0020src="';
+img+='data:image/gif;base64,';
+img+=base64;img+='"';
+img+='\u0020width="';
+img+=width;img+='"';
+img+='\u0020id="imagenqr"';
+img+='\u0020height="';
+img+=height;img+='"';
+if(alt){img+='\u0020alt="';
+img+=alt;img+='"';
+
+}
+img+='/>';
+var src='';
+
+src+='"';
+src+='data:image/gif;base64,';
+src+=base64;
+src+='"';
+
+
+ $("#src").val(src);
+return img;};return qrcode;}();var draw_qrcode=function(text,typeNumber,errorCorrectLevel){document.write(create_qrcode(text,typeNumber,errorCorrectLevel));};var create_qrcode=function(text,typeNumber,errorCorrectLevel,table){var qr=qrcode(typeNumber||4,errorCorrectLevel||'M');qr.addData(text);qr.make();return qr.createImgTag();};var update_qrcode=function(){
 	var unvalor=$('#msg').val();
 	var text=unvalor.replace(/^[\s\u3000]+|[\s\u3000]+$/g,'');
 

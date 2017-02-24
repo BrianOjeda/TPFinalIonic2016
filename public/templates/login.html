@@ -1,0 +1,22 @@
+<ion-view title="login" id="page1" style="background-color:#1D3A83;">
+  <ion-content padding="true" class="has-header">
+    <div class="spacer" style="width: 300px; height: 163px;"></div>
+    <img src="img/login.png" class="imglogin">
+    <img src="img/logintitulo.png" class="imglogintitulo">
+      <button ng-click="usuariouno()" class="usuariouno">Usuario1</button>
+       <button ng-click="usuariodos()" class="usuariodos">Usuario2</button>
+    <form id="login-form2" class="list loginform">
+      <label class="item item-input" id="login-input3">
+        <input type="email" id="email" placeholder="Email">
+      </label>
+      <div class="spacer" style="width: 300px; height: 13px;"></div>
+      <label class="item item-input" id="login-input4">
+        <input type="password" id="pass" placeholder="Password">
+      </label>
+    </form>
+    <button  id="login-button1" class="button button-positive   buttomlogin" ng-click="login()">Ingresar</button>
+    <div class="spacer" style="width: 300px; height: 26px;"></div>
+    <a ui-sref="crearusuario" id="login-button1" class="loginregistro"><p>Registrarse!!!  </p></a>
+  <!--<div id="container"></div>-->
+  </ion-content>
+</ion-view>

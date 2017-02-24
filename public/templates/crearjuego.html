@@ -1,0 +1,20 @@
+<ion-view title="crearjuego" id="page4" style="background-color:#1D3A83;">
+  <ion-content>
+   <ion-toggle toggle-class="toggle-balanced" ng-checked="true" id="menu-toggle3" ng-click="Desloguear()">Desloguear</ion-toggle>
+
+
+      <h1 class="titulomenu">Crear Juego</h1>
+    
+    <form id="crearjuego-form3" class="list crearjuegoform">
+      <label class="item item-input" id="crearjuego-input5">
+        <input type="text" id="nombre" placeholder="Nombre de la partida">
+      </label>
+      <div class="spacer" style="width: 300px; height: 24px;"></div>
+      <label class="item item-input" id="crearjuego-input6">
+        <input id="apuesta"type="text" placeholder="Apuesta">
+      </label>
+    </form>
+    <button id="crearjuego-button5" class="button button-positive  buttoncrearjuego" ng-click="guardarjuego()">Crear Juego</button>
+     <a ui-sref="menu" id="login-button1" class="salamenu"><img src="img/casita.png" class="imghome"></a>
+  </ion-content>
+</ion-view>
